@@ -12,6 +12,7 @@ The setup script will create a virtual enviroment with required packages install
 
     conda activate ./.venv
 
+The repository has been designed to be used with Visual Studio Code (https://code.visualstudio.com/).
 
 ## Usage
 

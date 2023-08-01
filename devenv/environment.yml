@@ -23,6 +23,7 @@ dependencies:
   - nbconvert
   - tabulate
   - black
+  - isort
   - certifi
   - pip:
     - tifffile
