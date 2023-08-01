@@ -1,0 +1,167 @@
+{
+    "data": {
+        "root": ["../data/coco_unlabeled2017/images"]
+    },
+    "data_loader": {
+        "batch_size": 4,
+        "factory_function_evaluation": "data.synthetic.interface.init_synthetic_evaluation_loader",
+        "factory_function_training": "data.synthetic.interface.init_synthetic_training_loader",
+        "inference_batch_size": 32,
+        "label_simulated_deformation": {
+            "center_range": {
+                "lower": [
+                    0.0,
+                    0.0
+                ],
+                "upper": [
+                    1.0,
+                    1.0
+                ]
+            },
+            "degree_range": {
+                "lower": [
+                    -15
+                ],
+                "upper": [
+                    15
+                ]
+            },
+            "magnitude_range": {
+                "lower": [
+                    -20.0,
+                    -20.0
+                ],
+                "upper": [
+                    20.0,
+                    20.0
+                ]
+            },
+            "translation_range": {
+                "lower": [
+                    -15,
+                    -15
+                ],
+                "upper": [
+                    15,
+                    15
+                ]
+            },
+            "width_range": {
+                "lower": [
+                    0.1,
+                    0.1
+                ],
+                "upper": [
+                    0.3,
+                    0.3
+                ]
+            }
+        },
+        "label_signal_range": 255,
+        "n_inference_workers": 5,
+        "n_validation_workers": 5,
+        "n_workers": 5,
+        "normalization": {
+            "input_mean_and_std": [
+                [
+                    121.450005,
+                    113.82671,
+                    103.02881
+                ],
+                [
+                    70.22644008,
+                    68.61982149,
+                    72.00618778
+                ]
+            ],
+            "label_mean_and_std": [
+                [
+                    103.26979,
+                    121.60696,
+                    113.97652
+                ],
+                [
+                    71.51145,
+                    69.62923,
+                    68.01114
+                ]
+            ]
+        },
+        "patch_size": [
+            400,
+            400
+        ],
+        "generate_flips": true,
+        "generate_orthogonal_rotations": true,
+        "rotation_degree_range": [
+            -15,
+            15
+        ],
+        "voxel_size": [
+            1.0,
+            1.0
+        ]
+    },
+    "model": {
+        "n_normalization_groups": 16,
+        "final_activation": "linear",
+        "inference_function_obtainer": "model.inference.get_i2i_unet_inference_function",
+        "n_features_per_block_i2i": [
+            32,
+            64,
+            128,
+            256,
+            256
+        ],
+        "n_features_per_block_intra_modality_reg": [
+            32,
+            64,
+            128,
+            256,
+            256
+        ],
+        "n_features_per_block_cross_modality_reg": [
+            32,
+            64,
+            128,
+            256,
+            256
+        ],
+        "n_features_per_block_rigid_reg": [
+            32,
+            64,
+            128,
+            256,
+            256
+        ],
+        "n_input_channels": 3,
+        "n_output_channels": 3
+    },
+    "training": {
+        "learning_rate_generator": 0.0002,
+        "loss": {
+            "deformation": {
+                "affinity_weight": 1.0,
+                "orthonormality_weight": 1.0,
+                "properness_weight": 0.1,
+                "voxel_size": [
+                    1.0,
+                    1.0
+                ],
+                "first_derivatives_central": false,
+                "second_derivatives_central": true
+            },
+            "max_rotation": 30,
+            "max_translation": 50,
+            "similarity_loss": "mae",
+            "use_implicit_di": false,
+            "intra_modality_similarity_weight": 1.0,
+            "cross_modality_similarity_weight": 1.0,
+            "rigid_similarity_weight": 1.0,
+            "forward_rigidity_weight": 0.1,
+            "inverse_rigidity_weight": 0.1,
+            "di_weight": 0.0
+        },
+        "n_epochs": 40
+    }
+}

@@ -1,0 +1,83 @@
+{
+    "data": {
+        "datasets": {
+            "test": [
+                "sample_23",
+                "sample_24",
+                "sample_26",
+                "sample_31",
+                "sample_25",
+                "sample_18",
+                "sample_17"
+            ],
+            "train": [
+                "sample_28",
+                "sample_33",
+                "sample_32",
+                "sample_16",
+                "sample_29",
+                "sample_21",
+                "sample_27",
+                "sample_35",
+                "sample_30"
+            ],
+            "validate": [
+                "sample_20"
+            ]
+        },
+        "postfixes": {
+            "input": "stained.tif",
+            "input_mask": "mask.tif",
+            "label_training": "stained.tif"
+        },
+        "root": ["../data/virtual_staining/images"]
+    },
+    "data_loader": {
+        "factory_function_inference": "data.tiff.interface.init_tiff_inference_loader",
+        "inference_batch_size": 4,
+        "inference_stride": [
+            256,
+            256
+        ],
+        "n_inference_workers": 9,
+        "normalization": {
+            "input_mean_and_std": [
+                [
+                    164.05609,
+                    123.71987,
+                    170.22136
+                ],
+                [
+                    31.600388,
+                    47.338154,
+                    24.502851
+                ]
+            ],
+            "label_mean_and_std": [
+                [
+                    164.05609,
+                    123.71987,
+                    170.22136
+                ],
+                [
+                    31.600388,
+                    47.338154,
+                    24.502851
+                ]
+            ]
+        },
+        "patch_size": [
+            512,
+            512
+        ],
+        "voxel_size": [
+            1.0,
+            1.0
+        ],
+        "fusing_mask_smoothing": 5.0,
+        "mask_smaller_or_equal_values_as_invalid": 0.0
+    },
+    "model": {
+        "inference_function_obtainer": "model.inference.get_input_inference_function"
+    }
+}

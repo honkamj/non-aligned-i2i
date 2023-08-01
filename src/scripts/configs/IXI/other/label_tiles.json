@@ -1,0 +1,55 @@
+{
+    "data": {
+        "postfixes": {
+            "input": "PD_ground_truth.nii.gz",
+            "input_mask": "T2_valid_region_mask.nii.gz"
+        },
+        "root": ["../data/IXI/volumes"]
+    },
+    "data_loader": {
+        "factory_function_inference": "data.nifti.interface.init_nifti_inference_loader",
+        "inference_batch_size": 4,
+        "inference_stride": [
+            32,
+            32,
+            32
+        ],
+        "label_signal_range": 6.5,
+        "label_background_value": 0.0,
+        "n_inference_workers": 9,
+        "normalization": {
+            "input_mean_and_std": [
+                [
+                    0.0
+                ],
+                [
+                    1.0
+                ]
+            ],
+            "label_mean_and_std": [
+                [
+                    0.0
+                ],
+                [
+                    1.0
+                ]
+            ],
+            "input_min_and_max": [0.0, 6.5],
+            "label_min_and_max": [0.0, 6.5]
+        },
+        "patch_size": [
+            64,
+            64,
+            64
+        ],
+        "voxel_size": [
+            0.9375,
+            0.9375,
+            1.25
+        ],
+        "fusing_mask_smoothing": 2.0
+    },
+    "model": {
+        "inference_function_obtainer": "model.inference.get_input_inference_function"
+    }
+}

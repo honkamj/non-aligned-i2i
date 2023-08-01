@@ -1,0 +1,69 @@
+(FixedInternalImagePixelType "float")
+(MovingInternalImagePixelType "float")
+
+// **************** Main Components **************************
+
+(Registration "MultiMetricMultiResolutionRegistration")
+(Interpolator "BSplineInterpolator")
+(ResampleInterpolator "FinalBSplineInterpolator")
+
+(FixedImagePyramid "FixedSmoothingImagePyramid")
+(MovingImagePyramid "MovingSmoothingImagePyramid")
+
+(Optimizer "AdaptiveStochasticGradientDescent")
+(Transform "BSplineTransform")
+(Metric "AdvancedMattesMutualInformation" "TransformBendingEnergyPenalty" "TransformRigidityPenalty")
+(Metric0Weight 1)
+(Metric1Weight 20)
+(Metric2Weight 1.0)
+
+// ***************** Rigidity **************************
+(LinearityConditionWeight 100.0)
+(OrthonormalityConditionWeight 1.0)
+(PropernessConditionWeight 10.0)
+(MovingRigidityImageName "moving_rigidity_path")
+
+// ***************** Transformation **************************
+
+(GridSpacingSchedule 4 2 1)
+(FinalGridSpacingInPhysicalUnits 5)
+(HowToCombineTransforms "Compose")
+
+// ******************* Similarity measure *********************
+
+(NumberOfHistogramBins 64) // OPTIMIZED BY QUANTITATIVE MEASURES
+
+// ******************** Multiresolution **********************
+
+(NumberOfResolutions 3)
+(FixedImagePyramidSchedule 8 8 8  4 4 4  1 1 1)
+(MovingImagePyramidSchedule 8 8 2  4 4 1  1 1 1) // ACCOUNTING FOR ANISOTROPIC RESOLUTION
+
+// ******************* Optimizer ****************************
+
+(MaximumNumberOfIterations 500) // COULD PROBABLY BE LOWERED, ESPECIALLY FOR THE FIRST LEVELS OF THE IMAGE PYRAMID
+
+// **************** Image sampling **********************
+
+(NumberOfSpatialSamples 10000) // COULD PROBABLY BE LOWERED, ESPECIALLY FOR THE FIRST LEVELS OF THE IMAGE PYRAMID
+(NewSamplesEveryIteration "true")
+(ImageSampler "RandomSparseMask")
+(SampleRegionSize 40)  // OPTIMIZED BY QUANTITATIVE MEASURES
+(UseRandomSampleRegion "true")
+(MaximumNumberOfSamplingAttempts 5)
+(RequiredRatioOfValidSamples 0.05)
+
+// ************* Interpolation and Resampling ****************
+
+(BSplineInterpolationOrder 1)
+(FinalBSplineInterpolationOrder 3)
+
+(ShowExactMetricValue "false") 
+(WriteTransformParametersEachResolution "true")
+//(WriteResultImageAfterEachResolution "true")
+//(WritePyramidImagesAfterEachResolution "true")
+
+(DefaultPixelValue -1024)
+(WriteResultImage "true")
+(ResultImagePixelType "float")
+(ResultImageFormat "nii.gz")

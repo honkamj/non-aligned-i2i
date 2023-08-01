@@ -1,0 +1,189 @@
+{
+    "data": {
+        "datasets": {
+            "test": [
+                "sample_23",
+                "sample_24",
+                "sample_26",
+                "sample_31",
+                "sample_25",
+                "sample_18",
+                "sample_17"
+            ],
+            "train": [
+                "sample_28",
+                "sample_33",
+                "sample_32",
+                "sample_16",
+                "sample_29",
+                "sample_21",
+                "sample_27",
+                "sample_35",
+                "sample_30"
+            ],
+            "validate": [
+                "sample_20"
+            ]
+        },
+        "postfixes": {
+            "input": "unstained.tif",
+            "label_training": "stained.tif",
+            "label_aligned": "stained_registered.tif",
+            "label_non_aligned": "stained.tif",
+            "input_mask": "mask.tif",
+            "label_training_mask": "mask.tif",
+            "label_aligned_mask": "mask.tif",
+            "label_non_aligned_mask": "mask.tif",
+            "evaluation_mask": "mask.tif"
+        },
+        "root": ["../data/virtual_staining/images"]
+    },
+    "data_loader": {
+        "batch_size": 4,
+        "factory_function_evaluation": "data.tiff.interface.init_tiff_evaluation_loader",
+        "factory_function_inference": "data.tiff.interface.init_tiff_inference_loader",
+        "factory_function_training": "data.tiff.interface.init_tiff_training_loader",
+        "inference_batch_size": 4,
+        "inference_stride": [
+            256,
+            256
+        ],
+        "label_signal_range": 255,
+        "min_input_mask_ratio": 1.0,
+        "min_label_mask_ratio": 1.0,
+        "n_inference_workers": 9,
+        "n_validation_workers": 9,
+        "n_workers": 15,
+        "input_noise_amplitude_range": [
+            0,
+            0.02
+        ],
+        "normalization": {
+            "input_mean_and_std": [
+                [
+                    113.94258,
+                    114.24301,
+                    118.18783
+                ],
+                [
+                    31.124516,
+                    31.680956,
+                    33.39581
+                ]
+            ],
+            "label_mean_and_std": [
+                [
+                    164.05609,
+                    123.71987,
+                    170.22136
+                ],
+                [
+                    31.600388,
+                    47.338154,
+                    24.502851
+                ]
+            ]
+        },
+        "patch_size": [
+            512,
+            512
+        ],
+        "generate_flips": true,
+        "generate_orthogonal_rotations": true,
+        "rotation_degree_range": [
+            -15,
+            15
+        ],
+        "shuffling_cluster_size": null,
+        "training_theoretical_stride": [
+            512,
+            512
+        ],
+        "voxel_size": [
+            1.0,
+            1.0
+        ],
+        "evaluation": {
+            "use_affinely_registered_training_label_as_ground_truth": true,
+            "affine_registration_seed": 135798462,
+            "affine_transformation_cache_path": [
+            	"/hdd/honkamj2/temp/virtual_staining_evaluation_transform_cache",
+            	"/scratch/cs/nonalignedi2i/temp/virtual_staining_evaluation_transform_cache"
+            ]
+        },
+        "mask_smaller_or_equal_values_as_invalid": 0.0,
+        "fusing_mask_smoothing": 5.0
+    },
+    "model": {
+        "n_normalization_groups": 16,
+        "final_activation": "linear",
+        "inference_function_obtainer": "model.inference.get_non_aligned_i2i_inference_function",
+        "n_features_per_block_discriminator": [
+            64,
+            128,
+            256,
+            512,
+            1024
+        ],
+        "n_features_per_block_i2i": [
+            64,
+            128,
+            256,
+            512,
+            1024
+        ],
+        "n_features_per_block_intra_modality_reg": [
+            32,
+            64,
+            128,
+            256,
+            256
+        ],
+        "n_features_per_block_cross_modality_reg": [
+            32,
+            64,
+            128,
+            256,
+            256
+        ],
+        "n_features_per_block_rigid_reg": [
+            32,
+            64,
+            128,
+            256,
+            256
+        ],
+        "n_input_channels": 3,
+        "n_output_channels": 3
+    },
+    "training": {
+        "learning_rate_discriminator": 0.0004,
+        "learning_rate_generator": 0.0001,
+        "loss": {
+            "deformation": {
+                "affinity_weight": 1.0,
+                "orthonormality_weight": 0.01,
+                "properness_weight": 0.1,
+                "voxel_size": [
+                    1.0,
+                    1.0
+                ],
+                "first_derivatives_central": false,
+                "second_derivatives_central": false
+            },
+            "discriminator_weight": 0.01,
+            "discriminator_weight_generator": 0.01,
+            "similarity_loss": "mae",
+            "use_implicit_di": true,
+            "intra_modality_similarity_weight": 1.0,
+            "cross_modality_similarity_weight": 1.0,
+            "rigid_similarity_weight": 1.0,
+            "di_weight": 0.0,
+            "forward_rigidity_weight": 100.0,
+            "inverse_rigidity_weight": 100.0,
+            "max_rotation": 20,
+            "max_translation": 80
+        },
+        "n_epochs": 20
+    }
+}
