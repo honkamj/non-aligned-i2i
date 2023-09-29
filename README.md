@@ -1,6 +1,6 @@
 # Deformation equivariant cross-modality image synthesis with paired non-aligned training data
 
-Official implementations for paper "Deformation equivariant cross-modality image synthesis with paired non-aligned training data" (Honkamaa et al., 2022)
+Official implementations for paper "Deformation equivariant cross-modality image synthesis with paired non-aligned training data" (Honkamaa et al., 2023)
 
 ## Environment setup
 
