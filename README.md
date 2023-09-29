@@ -166,7 +166,7 @@ If you use the repository, please cite (see [bibtex](citations.bib)):
 
 - **Deformation equivariant cross-modality image synthesis with paired non-aligned training data**  
 [Joel Honkamaa](https://github.com/honkamj "Joel Honkamaa"), Umair Khan, Sonja Koivukoski, Mira Valkonen, Leena Latonen, Pekka Ruusuvuori, and Pekka Marttinen  
-Medical image analysis. 2023. ([doi:10.1016/j.media.2023.102940](https://doi.org/10.1016/j.media.2023.102940 "doi:10.1016/j.media.2023.102940"))
+Medical Image Analysis. 2023. ([doi:10.1016/j.media.2023.102940](https://doi.org/10.1016/j.media.2023.102940 "doi:10.1016/j.media.2023.102940"))
 
 ## License
 
