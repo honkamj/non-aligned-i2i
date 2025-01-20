@@ -231,7 +231,7 @@ class BaseIndexSequence(IIndexSequence):
         )
 
     def _calculate_length(self) -> int:
-        return np_sum(self._patches_per_array)
+        return int(np_sum(self._patches_per_array))
 
     def _ensure_valid_index(self, index: int, version: int) -> None:
         if index < 0 or index >= len(self):
